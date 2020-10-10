@@ -14,15 +14,22 @@ namespace CQ.LeagueOfLegends.TFT.Network.Editor
 			var standalone = GetStandAloneFilePath();
 			if (standalone == null) return;
 			
+			Debug.Log(PlayerSettings.productName);
+			
 			Process[] processes = Process.GetProcesses();
 			foreach (Process process in processes)
 			{
-				if (process == null) continue;
-				if (process.MainModule == null) continue;
-				if (process.MainModule.FileName == standalone.FullName)
+				if (process.ProcessName == PlayerSettings.productName)
 				{
 					process.Kill();
 				}
+				//
+				// if (process == null) continue;
+				// if (process.MainModule == null) continue;
+				// if (process.MainModule.FileName == standalone.FullName)
+				// {
+				// 	process.Kill();
+				// }
 			}
 		}
 		

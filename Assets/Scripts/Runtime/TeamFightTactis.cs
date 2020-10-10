@@ -49,10 +49,13 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		{
 			// 스폰 포인트 가져오기
 			GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-			Vector3 position = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+
+			int pickedIndex = Random.Range(0, spawnPoints.Length);
+			Vector3 position = spawnPoints[pickedIndex].transform.position;
+			Quaternion rotation = spawnPoints[pickedIndex].transform.rotation * Quaternion.Euler(0, 180, 0);
 			
 			// 볼트 인스턴시에이트
-			BoltNetwork.Instantiate(BoltPrefabs.LittleLegend, position, Quaternion.identity);			
+			BoltNetwork.Instantiate(BoltPrefabs.LittleLegend, position, rotation);			
 		}
 		
 		public override void OnEvent(LogEvent evnt)

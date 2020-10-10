@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using Bolt;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions;
 
 namespace CQ.LeagueOfLegends.TFT.Network
 {
@@ -35,7 +36,17 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			
 			// 카메라 붙이기
 			mainCamera = Camera.main;
-			mainCamera.fieldOfView = 45;
+			Assert.IsNotNull(mainCamera);
+			
+			GameObject gimbal = new GameObject("Gimbal");
+			gimbal.transform.position = state.Transform.Position;
+			gimbal.transform.rotation = state.Transform.Rotation;
+			
+			mainCamera.transform.SetParent(gimbal.transform);
+			mainCamera.transform.localPosition = new Vector3(0, 32 ,-20);
+			mainCamera.transform.localRotation = Quaternion.Euler(Vector3.right * 50);
+
+			mainCamera.fieldOfView = 25;
 
 			agent = GetComponent<NavMeshAgent>();
 
@@ -47,18 +58,18 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		{
 			base.SimulateOwner();
 			
-			float speed = 4f;
-			Vector3 movement = Vector3.zero;
-			
-			if (Input.GetKey(KeyCode.W)) movement.z += 1;
-			if (Input.GetKey(KeyCode.S)) movement.z -= 1;
-			if (Input.GetKey(KeyCode.A)) movement.x -= 1;
-			if (Input.GetKey(KeyCode.D)) movement.x += 1;
-			
-			if (movement != Vector3.zero)
-			{
-				// transform.position += (movement.normalized * speed * BoltNetwork.FrameDeltaTime);
-			}
+			// float speed = 4f;
+			// Vector3 movement = Vector3.zero;
+			//
+			// if (Input.GetKey(KeyCode.W)) movement.z += 1;
+			// if (Input.GetKey(KeyCode.S)) movement.z -= 1;
+			// if (Input.GetKey(KeyCode.A)) movement.x -= 1;
+			// if (Input.GetKey(KeyCode.D)) movement.x += 1;
+			//
+			// if (movement != Vector3.zero)
+			// {
+			// 	// transform.position += (movement.normalized * speed * BoltNetwork.FrameDeltaTime);
+			// }
 		}
 
 		void Update()

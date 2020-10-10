@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
+  m_Name: 5_Azir
+  m_EditorClassIdentifier: 
+  championName: 
+  championCost: 5
+  originTraits:
+  - {fileID: 11400000, guid: 677610d07e046234491ba01acbca8d2a, type: 2}
+  - {fileID: 11400000, guid: b631baaacd3d09345b21c86108294f6d, type: 2}
+  classTraits:
+  - {fileID: 11400000, guid: c90f1b7deddc73b41976fa4b61e9136e, type: 2}

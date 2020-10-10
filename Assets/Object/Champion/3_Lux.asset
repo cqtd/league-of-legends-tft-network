@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
+  m_Name: 3_Lux
+  m_EditorClassIdentifier: 
+  championName: 
+  championCost: 3
+  originTraits:
+  - {fileID: 11400000, guid: 62b22b10271fbe04fb916e8f657a7cbd, type: 2}
+  classTraits:
+  - {fileID: 11400000, guid: ab7b22adb6b6dfa4dbac9fb89aa16574, type: 2}

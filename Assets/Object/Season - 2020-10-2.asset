@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 979a432c82b54a3780599ef5093ac8f1, type: 3}
+  m_Name: Season - 2020-10-2
+  m_EditorClassIdentifier: 
+  availableChampions:
+  - {fileID: 11400000, guid: 85615f5ef411f514e9aee594eb8aac8c, type: 2}
+  - {fileID: 11400000, guid: acf13238e86b4a14ca4f423a73524726, type: 2}
+  - {fileID: 11400000, guid: 9f9d841e0ce878043ac93959ec5d068e, type: 2}
+  - {fileID: 11400000, guid: 55c1eb91c87f22e4ba3da91bc6483409, type: 2}
+  - {fileID: 11400000, guid: 2eb510aef5a34a546afc3053169f911b, type: 2}
+  - {fileID: 11400000, guid: b6f5717916fa8774eb40e50bd7047089, type: 2}
+  - {fileID: 11400000, guid: 61626f074fa60c14f91c8a9deea2e0cb, type: 2}
+  - {fileID: 11400000, guid: ebc975f7eef40de4dbc7e3834ed831df, type: 2}
+  - {fileID: 11400000, guid: 80d88c1ae08638f42a35875567d1f763, type: 2}
+  - {fileID: 11400000, guid: a402510c0bdb62a479ac822599597851, type: 2}

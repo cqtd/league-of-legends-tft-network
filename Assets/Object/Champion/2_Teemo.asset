@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
+  m_Name: 2_Teemo
+  m_EditorClassIdentifier: 
+  championName: 
+  championCost: 2
+  originTraits:
+  - {fileID: 11400000, guid: 5705fbd50f9d91c4c8f7d47835453501, type: 2}
+  classTraits:
+  - {fileID: 11400000, guid: 23cfb5d805cf259448412c87c1644aaa, type: 2}

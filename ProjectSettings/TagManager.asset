@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SpawnPoint
   - CameraPoint
+  - SushiPoint
   layers:
   - Default
   - TransparentFX

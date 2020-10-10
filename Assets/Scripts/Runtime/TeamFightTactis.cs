@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Bolt;
 using UnityEngine;
@@ -55,7 +56,28 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			Quaternion rotation = spawnPoints[pickedIndex].transform.rotation * Quaternion.Euler(0, 180, 0);
 			
 			// 볼트 인스턴시에이트
-			BoltNetwork.Instantiate(BoltPrefabs.LittleLegend, position, rotation);			
+			BoltNetwork.Instantiate(BoltPrefabs.LittleLegend, position, rotation);
+
+			GameObject[] championSpawnPoints = GameObject.FindGameObjectsWithTag("SushiPoint");
+			StartCoroutine(SpawnSushi(championSpawnPoints));
+		}
+
+		IEnumerator SpawnSushi(GameObject[] points, float delay = 0.8f)
+		{
+			var prefab = Resources.Load("Champion_Prize");
+
+			foreach (GameObject championSpawnPoint in points)
+			{
+				yield return new WaitForSeconds(delay);
+				
+				GameObject instance = Instantiate(prefab) as GameObject;
+				
+				instance.transform.SetParent(championSpawnPoint.transform);
+				
+				instance.transform.localPosition = Vector3.one * 0.01f;
+				instance.transform.localRotation = Quaternion.identity;
+				instance.transform.localScale = 0.8f * Vector3.one;
+			}
 		}
 		
 		public override void OnEvent(LogEvent evnt)

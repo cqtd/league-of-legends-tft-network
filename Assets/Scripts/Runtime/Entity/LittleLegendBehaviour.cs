@@ -35,14 +35,11 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			
 			// 카메라 붙이기
 			mainCamera = Camera.main;
-			// mainCamera.transform.SetParent(this.transform);
-			// mainCamera.transform.localPosition = new Vector3(0, 10, -10);
-			// mainCamera.transform.localRotation = Quaternion.Euler(Vector3.right*35f);
 			mainCamera.fieldOfView = 45;
 
 			agent = GetComponent<NavMeshAgent>();
 
-			agent.updateRotation = false;
+			agent.updateRotation = true;
 			agent.updatePosition = true;
 		}
 		

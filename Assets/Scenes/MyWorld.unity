@@ -298,7 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 140756612}
   m_Layer: 0
-  m_Name: SushPoint
+  m_Name: SushPoint 7
   m_TagString: SushiPoint
   m_Icon: {fileID: 2800000, guid: d2b478a89610eb748a4b0b8040f43a01, type: 3}
   m_NavMeshLayer: 0
@@ -328,7 +328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 187579067}
   m_Layer: 0
-  m_Name: SushPoint
+  m_Name: SushPoint 2
   m_TagString: SushiPoint
   m_Icon: {fileID: 2800000, guid: d2b478a89610eb748a4b0b8040f43a01, type: 3}
   m_NavMeshLayer: 0
@@ -607,7 +607,7 @@ GameObject:
   m_Component:
   - component: {fileID: 557983788}
   m_Layer: 0
-  m_Name: SushPoint
+  m_Name: SushPoint 3
   m_TagString: SushiPoint
   m_Icon: {fileID: 2800000, guid: d2b478a89610eb748a4b0b8040f43a01, type: 3}
   m_NavMeshLayer: 0
@@ -686,6 +686,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a628b0d3c5445f48fc8bf38bcd1add3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  championSpawnPoints:
+  - {fileID: 875888821}
+  - {fileID: 2009310066}
+  - {fileID: 187579066}
+  - {fileID: 557983787}
+  - {fileID: 990238039}
+  - {fileID: 1082655459}
+  - {fileID: 1913685924}
+  - {fileID: 140756611}
+  - {fileID: 1469501586}
+  skip: 0
 --- !u!4 &629850328
 Transform:
   m_ObjectHideFlags: 0
@@ -725,19 +736,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_RootOrder
@@ -749,7 +760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1189,7 +1200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 875888822}
   m_Layer: 0
-  m_Name: SushPoint
+  m_Name: SushPoint 0
   m_TagString: SushiPoint
   m_Icon: {fileID: 2800000, guid: d2b478a89610eb748a4b0b8040f43a01, type: 3}
   m_NavMeshLayer: 0
@@ -1219,7 +1230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 990238040}
   m_Layer: 0
-  m_Name: SushPoint
+  m_Name: SushPoint 4
   m_TagString: SushiPoint
   m_Icon: {fileID: 2800000, guid: d2b478a89610eb748a4b0b8040f43a01, type: 3}
   m_NavMeshLayer: 0
@@ -1332,7 +1343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1082655460}
   m_Layer: 0
-  m_Name: SushPoint
+  m_Name: SushPoint 5
   m_TagString: SushiPoint
   m_Icon: {fileID: 2800000, guid: d2b478a89610eb748a4b0b8040f43a01, type: 3}
   m_NavMeshLayer: 0
@@ -1448,11 +1459,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9238117
+      value: 0.8870109
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1460,7 +1471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.38284728
+      value: -0.46174863
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_RootOrder
@@ -1472,7 +1483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 235
       objectReference: {fileID: 0}
     - target: {fileID: 1110355034045183562, guid: 2445c200e8228f44abd281cc56ce2499, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1660,7 +1671,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1469501587}
   m_Layer: 0
-  m_Name: SushPoint
+  m_Name: SushPoint 8
   m_TagString: SushiPoint
   m_Icon: {fileID: 2800000, guid: d2b478a89610eb748a4b0b8040f43a01, type: 3}
   m_NavMeshLayer: 0
@@ -1834,7 +1845,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1913685925}
   m_Layer: 0
-  m_Name: SushPoint
+  m_Name: SushPoint 6
   m_TagString: SushiPoint
   m_Icon: {fileID: 2800000, guid: d2b478a89610eb748a4b0b8040f43a01, type: 3}
   m_NavMeshLayer: 0
@@ -1864,7 +1875,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2009310067}
   m_Layer: 0
-  m_Name: SushPoint
+  m_Name: SushPoint 1
   m_TagString: SushiPoint
   m_Icon: {fileID: 2800000, guid: d2b478a89610eb748a4b0b8040f43a01, type: 3}
   m_NavMeshLayer: 0

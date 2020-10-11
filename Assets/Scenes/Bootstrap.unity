@@ -946,8 +946,9 @@ GameObject:
   - component: {fileID: 1016933815}
   - component: {fileID: 1016933814}
   - component: {fileID: 1016933816}
+  - component: {fileID: 1016933817}
   m_Layer: 0
-  m_Name: Menu
+  m_Name: Setting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -998,6 +999,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frameRate: 60
   resolution: {x: 1280, y: 720}
+--- !u!114 &1016933817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016933813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0dea60815e84d50b03d6e116118924d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  archetype: {fileID: 11400000, guid: 1b2554a9da6ea3b429449743338d064c, type: 2}
 --- !u!1 &1133046169
 GameObject:
   m_ObjectHideFlags: 0

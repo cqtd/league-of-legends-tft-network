@@ -111,5 +111,16 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			
 			CursorEffect.Spawn(position, null);
 		}
+
+		
+		// 콜라이드 작업 중
+		void OnTriggerEnter(Collider other)
+		{
+			FrozenChampion fc = other.GetComponent<FrozenChampion>();
+			if (fc != null)
+			{
+				Debug.Log($"Hit! : {fc.name}");
+			}
+		}
 	}
 }

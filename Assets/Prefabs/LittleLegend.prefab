@@ -385,6 +385,7 @@ GameObject:
   - component: {fileID: 6973308891232187983}
   - component: {fileID: 5403226212121065797}
   - component: {fileID: 5448062150843425605}
+  - component: {fileID: 818310179902057469}
   m_Layer: 0
   m_Name: LittleLegend
   m_TagString: Untagged
@@ -440,6 +441,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   surfaceOffset: 0.2
+  velocityMag_Debug: 0
+  speedMax_Debug: 0
 --- !u!114 &5403226212121065797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,6 +494,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &818310179902057469
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919012471076396}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1989916952965676
 GameObject:
   m_ObjectHideFlags: 0

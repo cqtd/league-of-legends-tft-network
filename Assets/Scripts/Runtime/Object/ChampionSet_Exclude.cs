@@ -7,9 +7,9 @@ using static UnityEditor.AssetDatabase;
 
 namespace CQ.LeagueOfLegends.TFT.Network
 {
-	public partial class ChampionSet : ScriptableObject
+	public partial class ChampionSet : Archetype
 	{
-		[MenuItem("TFT/모든 챔피언 등록")]
+		[MenuItem("TFT/Archetype/모든 챔피언 등록")]
 		static void AddAllChampionEditor()
 		{
 			var champSet = FindAssets("t:ChampionSet")
@@ -18,7 +18,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			
 			champSet.availableChampions = FindAssets("t:Champion")
 				.Select(GUIDToAssetPath)
-				.Select(LoadAssetAtPath<Champion>).ToList();
+				.Select(LoadAssetAtPath<ChampionArchetype>).ToList();
 			
 			EditorUtility.SetDirty(champSet);
 			SaveAssets();

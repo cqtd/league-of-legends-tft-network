@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Bolt;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,6 +11,9 @@ namespace CQ.LeagueOfLegends.TFT.Network
 {
 	public class TeamFightTactis : GlobalEventListener
 	{
+		[SerializeField] GameObject[] championSpawnPoints = new GameObject[0];
+		public bool skip;
+		
 		readonly List<string> logMessages = new List<string>();
 		
 		GameObject[] cameraPoints = new GameObject[0];
@@ -20,7 +25,9 @@ namespace CQ.LeagueOfLegends.TFT.Network
 
 			// 에디터에서는 서버로 클라이언트 로직 일부 실행
 #if UNITY_EDITOR
-			SceneLoadLocalDoneClient(scene, token);
+			SceneLoadLocalDoneEditor(scene, token);
+
+			UnityEditor.Selection.objects = new[] {this.gameObject};
 #else
 
 			if (BoltNetwork.IsServer)
@@ -43,7 +50,22 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			{
 				Camera.main.transform.position = cameraPoints[cameraIndex].transform.position;
 				Camera.main.transform.rotation = cameraPoints[cameraIndex].transform.rotation;
-			}			
+			}
+
+			StartCoroutine(SpawnSushi(championSpawnPoints));
+		}
+
+		/// <summary>
+		/// Editor는 항상 서버이고, 클라이언트로 동작한다.
+		/// </summary>
+		/// <param name="scene"></param>
+		/// <param name="token"></param>
+		[Conditional("UNITY_EDITOR")]
+		void SceneLoadLocalDoneEditor(string scene, IProtocolToken token)
+		{
+			SceneLoadLocalDoneClient(scene, token);
+			
+			StartCoroutine(SpawnSushi(championSpawnPoints));
 		}
 
 		void SceneLoadLocalDoneClient(string scene, IProtocolToken token)
@@ -57,26 +79,29 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			
 			// 볼트 인스턴시에이트
 			BoltNetwork.Instantiate(BoltPrefabs.LittleLegend, position, rotation);
-
-			GameObject[] championSpawnPoints = GameObject.FindGameObjectsWithTag("SushiPoint");
-			StartCoroutine(SpawnSushi(championSpawnPoints));
 		}
 
 		IEnumerator SpawnSushi(GameObject[] points, float delay = 0.8f)
 		{
-			var prefab = Resources.Load("Champion_Prize");
+			while (BoltNetwork.Clients.Count() < 2 && !skip)
+				yield return null;
+			
+			var prefab = Resources.Load<GameObject>("Frozen Champion");
 
 			foreach (GameObject championSpawnPoint in points)
 			{
 				yield return new WaitForSeconds(delay);
+
+				BoltEntity instance = BoltNetwork.Instantiate(BoltPrefabs.Frozen_Champion);
+				FrozenChampion fc = instance.GetComponent<FrozenChampion>();
 				
-				GameObject instance = Instantiate(prefab) as GameObject;
+				fc.SetChampion(ChampionPool.Instance.PickSushi1(EMatchTheme.None));
 				
 				instance.transform.SetParent(championSpawnPoint.transform);
 				
-				instance.transform.localPosition = Vector3.one * 0.01f;
+				instance.transform.localPosition = Vector3.zero;
 				instance.transform.localRotation = Quaternion.identity;
-				instance.transform.localScale = 0.8f * Vector3.one;
+				instance.transform.localScale = Vector3.one;
 			}
 		}
 		

@@ -8,7 +8,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.Editor
 {
 	public static class MenuItems
 	{
-		[MenuItem("TFT/Kill All Processes", false, 501)]
+		[MenuItem("TFT/Standalone/Kill All Processes", false, 501)]
 		static void KillAllProcess()
 		{
 			var standalone = GetStandAloneFilePath();
@@ -33,7 +33,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.Editor
 			}
 		}
 		
-		[MenuItem("TFT/Run StandAlone 1", false, 201)]
+		[MenuItem("TFT/Standalone/Run 1", false, 201)]
 		static void RunStandAlone1()
 		{
 			for (int i = 0; i < 1; i++)
@@ -42,7 +42,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.Editor
 			}
 		}
 		
-		[MenuItem("TFT/Run StandAlone 2", false, 202)]
+		[MenuItem("TFT/Standalone/Run 2", false, 202)]
 		static void RunStandAlone2()
 		{
 			for (int i = 0; i < 2; i++)
@@ -51,7 +51,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.Editor
 			}
 		}
 		
-		[MenuItem("TFT/Run StandAlone 3", false, 203)]
+		[MenuItem("TFT/Standalone/Run 3", false, 203)]
 		static void RunStandAlone3()
 		{
 			for (int i = 0; i < 3; i++)
@@ -60,7 +60,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.Editor
 			}
 		}
 		
-		[MenuItem("TFT/Run StandAlone 4", false, 204)]
+		[MenuItem("TFT/Standalone/Run 4", false, 204)]
 		static void RunStandAlone4()
 		{
 			for (int i = 0; i < 4; i++)
@@ -69,7 +69,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.Editor
 			}
 		}
 		
-		[MenuItem("TFT/Run StandAlone 5", false, 205)]
+		[MenuItem("TFT/Standalone/Run 5", false, 205)]
 		static void RunStandAlone5()
 		{
 			for (int i = 0; i < 5; i++)
@@ -78,7 +78,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.Editor
 			}
 		}
 		
-		[MenuItem("TFT/Run StandAlone 6", false, 206)]
+		[MenuItem("TFT/Standalone/Run 6", false, 206)]
 		static void RunStandAlone6()
 		{
 			for (int i = 0; i < 6; i++)
@@ -87,7 +87,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.Editor
 			}
 		}
 		
-		[MenuItem("TFT/Run StandAlone 7", false, 207)]
+		[MenuItem("TFT/Standalone/Run 7", false, 207)]
 		static void RunStandAlone7()
 		{
 			for (int i = 0; i < 7; i++)
@@ -96,7 +96,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.Editor
 			}
 		}
 		
-		[MenuItem("TFT/Run StandAlone 8", false, 208)]
+		[MenuItem("TFT/Standalone/Run 8", false, 208)]
 		static void RunStandAlone8()
 		{
 			for (int i = 0; i < 8; i++)

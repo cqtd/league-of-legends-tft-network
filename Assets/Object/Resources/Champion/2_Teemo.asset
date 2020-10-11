@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
-  m_Name: 2_Annie
+  m_Name: 2_Teemo
   m_EditorClassIdentifier: 
+  guid:
+    guidBytes: 5f08aa3a2deafe479dea193c57fe7ab3
   championName: 
   championCost: 2
   originTraits:
-  - {fileID: 11400000, guid: 744798f5461a7b34297885a1a7e52c13, type: 2}
+  - {fileID: 11400000, guid: 5705fbd50f9d91c4c8f7d47835453501, type: 2}
   classTraits:
-  - {fileID: 11400000, guid: a9aa8d92c0e1b9c47846054d5d2473fa, type: 2}
+  - {fileID: 11400000, guid: 23cfb5d805cf259448412c87c1644aaa, type: 2}
+  figure: {fileID: 0}

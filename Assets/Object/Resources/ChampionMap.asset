@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 979a432c82b54a3780599ef5093ac8f1, type: 3}
-  m_Name: Season - 2020-10-2
+  m_Name: ChampionMap
   m_EditorClassIdentifier: 
+  guid:
+    guidBytes: 
   availableChampions:
   - {fileID: 11400000, guid: 85615f5ef411f514e9aee594eb8aac8c, type: 2}
   - {fileID: 11400000, guid: acf13238e86b4a14ca4f423a73524726, type: 2}

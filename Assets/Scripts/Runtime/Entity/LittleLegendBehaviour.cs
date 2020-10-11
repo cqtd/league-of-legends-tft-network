@@ -8,17 +8,22 @@ using UnityEngine.Assertions;
 namespace CQ.LeagueOfLegends.TFT.Network
 {
 	[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
-	public class LittleLegendBehaviour : EntityEventListener<ILittleLegend>
+	public class LittleLegendBehaviour : EntityEventListener<ILittleLegendState>
 	{
 		Camera mainCamera;
 		Vector3 lastPosition;
 		public float surfaceOffset = 0.2f;
+		public float threshold = 1.5f;
 
 		[Header("Debug View")] 
 		public float velocityMag_Debug;
 		public float speedMax_Debug;
+		
 		static readonly int pSpeed = Animator.StringToHash("Speed");
 		static readonly int pIsMoving = Animator.StringToHash("IsMoving");
+
+		FrozenChampBehaviour takenChampion;
+		Transform nearBy;
 
 		public NavMeshAgent agent { get; private set; }
 		
@@ -33,76 +38,102 @@ namespace CQ.LeagueOfLegends.TFT.Network
 
 			// need to chk how this works.
 			state.Animator.applyRootMotion = entity.IsOwner;
-			
-			// 카메라 붙이기
-			mainCamera = Camera.main;
-			Assert.IsNotNull(mainCamera);
-			
-			GameObject gimbal = new GameObject("Gimbal");
-			gimbal.transform.position = state.Transform.Position;
-			gimbal.transform.rotation = state.Transform.Rotation;
-			
-			mainCamera.transform.SetParent(gimbal.transform);
-			mainCamera.transform.localPosition = new Vector3(0, 32 ,-20);
-			mainCamera.transform.localRotation = Quaternion.Euler(Vector3.right * 50);
 
-			mainCamera.fieldOfView = 25;
+			if (entity.IsOwner)
+			{
+				// 카메라 붙이기
+				mainCamera = Camera.main;
+				Assert.IsNotNull(mainCamera);
+			
+				GameObject gimbal = new GameObject("Gimbal");
+				
+				gimbal.transform.position = state.Transform.Position;
+				gimbal.transform.rotation = state.Transform.Rotation;
+			
+				mainCamera.transform.SetParent(gimbal.transform);
+				mainCamera.transform.localPosition = new Vector3(0, 32 ,-20);
+				mainCamera.transform.localRotation = Quaternion.Euler(Vector3.right * 50);
 
-			agent = GetComponent<NavMeshAgent>();
+				mainCamera.fieldOfView = 25;
 
-			agent.updateRotation = true;
-			agent.updatePosition = true;
+				agent = GetComponent<NavMeshAgent>();
+
+				agent.updateRotation = true;
+				agent.updatePosition = true;				
+			}
+			
+			state.AddCallback("CanMove", OnCanMoveChanged);
 		}
-		
-		public override void SimulateOwner()
+
+		void OnCanMoveChanged()
 		{
-			base.SimulateOwner();
-			
-			// float speed = 4f;
-			// Vector3 movement = Vector3.zero;
-			//
-			// if (Input.GetKey(KeyCode.W)) movement.z += 1;
-			// if (Input.GetKey(KeyCode.S)) movement.z -= 1;
-			// if (Input.GetKey(KeyCode.A)) movement.x -= 1;
-			// if (Input.GetKey(KeyCode.D)) movement.x += 1;
-			//
-			// if (movement != Vector3.zero)
-			// {
-			// 	// transform.position += (movement.normalized * speed * BoltNetwork.FrameDeltaTime);
-			// }
+			if (state.CanMove)
+			{
+				nearBy.gameObject.SetActive(false);
+			}
+			else
+			{
+				nearBy.gameObject.SetActive(true);
+			}
+		}
+
+		public void Set(Transform trm)
+		{
+			this.nearBy = trm;
 		}
 
 		void Update()
 		{
-			if (Input.GetMouseButtonDown(1))
+			if (entity.IsOwner)
 			{
-				Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-				if (!Physics.Raycast(ray, out RaycastHit hit))
+				if (Input.GetMouseButtonDown(1))
 				{
-					return;
-				}
+					Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+					if (!Physics.Raycast(ray, out RaycastHit hit))
+					{
+						return;
+					}
 
-				Vector3 dest = hit.point + hit.normal * surfaceOffset;
-				if (dest != lastPosition)
-				{
-					lastPosition = dest;
+					Vector3 dest = hit.point + hit.normal * surfaceOffset;
+					if (dest != lastPosition)
+					{
+						if (!state.CanMove)
+						{
+							if (Vector3.Distance(dest, nearBy.transform.position) < threshold)
+							{
+								lastPosition = dest;
 				
-					SetTarget(dest);
+								SetTarget(dest);								
+							}
+						}
+						else
+						{
+							lastPosition = dest;
+				
+							SetTarget(dest);
+						}
+					}
+				}
+				
+				float speed = agent.velocity.magnitude;
+				float speedRate = speed / (agent.speed + 0.1f);
+			
+				state.Animator.SetFloat(pSpeed, speedRate);
+				if (speedRate > 0.1f)
+				{
+					state.Animator.SetBool(pIsMoving, true);
+				}
+				else
+				{
+					state.Animator.SetBool(pIsMoving, false);
 				}
 			}
+		}
 
-			float speed = agent.velocity.magnitude;
-			float speedRate = speed / (agent.speed + 0.1f);
-			
-			state.Animator.SetFloat(pSpeed, speedRate);
-			if (speedRate > 0.1f)
-			{
-				state.Animator.SetBool(pIsMoving, true);
-			}
-			else
-			{
-				state.Animator.SetBool(pIsMoving, false);
-			}
+		void OnDrawGizmos()
+		{
+			Gizmos.color = Color.red;
+			Gizmos.DrawSphere(lastPosition, threshold);
 		}
 
 		void SetTarget(Vector3 position)
@@ -111,16 +142,27 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			
 			CursorEffect.Spawn(position, null);
 		}
-
 		
-		// 콜라이드 작업 중
 		void OnTriggerEnter(Collider other)
 		{
-			FrozenChampion fc = other.GetComponent<FrozenChampion>();
-			if (fc != null)
+			if (BoltNetwork.IsServer)
 			{
-				Debug.Log($"Hit! : {fc.name}");
+				if (takenChampion != null)
+					return;
+				
+				FrozenChampBehaviour fc = other.GetComponent<FrozenChampBehaviour>();
+				
+				if (fc == null) return;
+				if (fc.HasOwner == true) return;
+				
+				TakeFrozenChamp(fc);
 			}
+		}
+
+		void TakeFrozenChamp(FrozenChampBehaviour champion)
+		{
+			champion.Taken(this);
+			takenChampion = champion;
 		}
 	}
 }

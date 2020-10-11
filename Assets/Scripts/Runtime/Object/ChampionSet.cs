@@ -7,8 +7,6 @@ namespace CQ.LeagueOfLegends.TFT.Network
 	public partial class ChampionSet : Archetype
 	{
 		public List<ChampionArchetype> availableChampions = new List<ChampionArchetype>();
-
+		
 	}
-	
-	
 }

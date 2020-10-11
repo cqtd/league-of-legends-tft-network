@@ -1805,7 +1805,7 @@ GameObject:
   - component: {fileID: 6438289871508456924}
   - component: {fileID: -5574512650647199329}
   m_Layer: 0
-  m_Name: Frozen Champion 1
+  m_Name: Frozen Champion BAK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

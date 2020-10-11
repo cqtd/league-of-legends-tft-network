@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
-  m_Name: 4_Ashe
+  m_Name: 4_Riven
   m_EditorClassIdentifier: 
+  guid:
+    guidBytes: 13650ca84ab72049ac97485a9095415b
   championName: 
   championCost: 4
   originTraits:
-  - {fileID: 11400000, guid: fd352684cc6730f4984e1590adf6c967, type: 2}
+  - {fileID: 11400000, guid: 677610d07e046234491ba01acbca8d2a, type: 2}
   classTraits:
-  - {fileID: 11400000, guid: 3526601801b79564cbcf25b1cb4c2abb, type: 2}
+  - {fileID: 11400000, guid: cd93eb58d025723489ee7dbaa2c8f72e, type: 2}
+  figure: {fileID: 0}

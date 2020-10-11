@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -52,7 +51,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 				Camera.main.transform.rotation = cameraPoints[cameraIndex].transform.rotation;
 			}
 
-			StartCoroutine(SpawnSushi(championSpawnPoints));
+			StartCoroutine(SpawnSushiOnServer(championSpawnPoints));
 		}
 
 		/// <summary>
@@ -65,7 +64,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		{
 			SceneLoadLocalDoneClient(scene, token);
 			
-			StartCoroutine(SpawnSushi(championSpawnPoints));
+			StartCoroutine(SpawnSushiOnServer(championSpawnPoints));
 		}
 
 		void SceneLoadLocalDoneClient(string scene, IProtocolToken token)
@@ -78,13 +77,20 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			Quaternion rotation = spawnPoints[pickedIndex].transform.rotation * Quaternion.Euler(0, 180, 0);
 			
 			// 볼트 인스턴시에이트
-			BoltNetwork.Instantiate(BoltPrefabs.LittleLegend, position, rotation);
+			var instance = BoltNetwork.Instantiate(BoltPrefabs.LittleLegend, position, rotation);
+			LittleLegendBehaviour littleLegend = instance.GetComponent<LittleLegendBehaviour>();
+			
+			littleLegend.Set(spawnPoints[pickedIndex].transform);
 		}
 
-		IEnumerator SpawnSushi(GameObject[] points, float delay = 0.8f)
+		IEnumerator SpawnSushiOnServer(GameObject[] points, float delay = 0.8f)
 		{
+#if !UNITY_EDITOR
+			
 			while (BoltNetwork.Clients.Count() < 2 && !skip)
 				yield return null;
+			
+#endif
 			
 			var prefab = Resources.Load<GameObject>("Frozen Champion");
 
@@ -93,15 +99,30 @@ namespace CQ.LeagueOfLegends.TFT.Network
 				yield return new WaitForSeconds(delay);
 
 				BoltEntity instance = BoltNetwork.Instantiate(BoltPrefabs.Frozen_Champion);
-				FrozenChampion fc = instance.GetComponent<FrozenChampion>();
+				FrozenChampBehaviour fc = instance.GetComponent<FrozenChampBehaviour>();
 				
-				fc.SetChampion(ChampionPool.Instance.PickSushi1(EMatchTheme.None));
+				fc.SetChampion(ChampionPool.PickSushi1(EMatchTheme.None));
 				
 				instance.transform.SetParent(championSpawnPoint.transform);
 				
 				instance.transform.localPosition = Vector3.zero;
 				instance.transform.localRotation = Quaternion.identity;
 				instance.transform.localScale = Vector3.one;
+			}
+			
+			yield return new WaitForSeconds(3.0f);
+			yield return ReleaseLittleLegends();
+		}
+
+		IEnumerator ReleaseLittleLegends()
+		{
+			yield return null;
+
+			var legends = FindObjectsOfType<LittleLegendBehaviour>();
+			foreach (LittleLegendBehaviour legend in legends)
+			{
+				legend.state.CanMove = true;
+				yield return new WaitForSeconds(0.5f);
 			}
 		}
 		

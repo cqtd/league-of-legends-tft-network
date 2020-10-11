@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
-  m_Name: 3_Jinx
+  m_Name: 3_Lux
   m_EditorClassIdentifier: 
-  championName: Jinx
+  guid:
+    guidBytes: fb1ccc3d3cbd0243bf33d50cd9b5e555
+  championName: 
   championCost: 3
   originTraits:
-  - {fileID: 11400000, guid: a9aa8d92c0e1b9c47846054d5d2473fa, type: 2}
+  - {fileID: 11400000, guid: 62b22b10271fbe04fb916e8f657a7cbd, type: 2}
   classTraits:
-  - {fileID: 11400000, guid: 23cfb5d805cf259448412c87c1644aaa, type: 2}
-  figure: {fileID: 643757829239472953, guid: b8a7eaf8af9ddab4b979ac3b488e21ae, type: 3}
+  - {fileID: 11400000, guid: ab7b22adb6b6dfa4dbac9fb89aa16574, type: 2}
+  figure: {fileID: 0}

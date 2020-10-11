@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace CQ.LeagueOfLegends.TFT.Network
 {
@@ -21,11 +23,16 @@ namespace CQ.LeagueOfLegends.TFT.Network
 				return instance;
 			}
 		}
-		
-		public ChampionArchetype PickSushi1(EMatchTheme theme)
+
+		ChampionPool()
+		{
+
+		}
+
+		public static ChampionArchetype PickSushi1(EMatchTheme theme)
 		{
 			// @TODO : Implement random next logic
-			return Resources.Load<ChampionArchetype>("3_Jinx");
+			return Resources.Load<ChampionArchetype>("Champion/3_Jinx");
 		}
 	}
 }

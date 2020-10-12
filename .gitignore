@@ -11,7 +11,7 @@
 /.idea/
 /[Mm]emoryCaptures/
 [[Cc]ontainer/
-
+/Bolt_DebugStart_Build/
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 

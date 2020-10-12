@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
   m_Name: 1_Wukong
   m_EditorClassIdentifier: 
-  guid:
-    guidBytes: 1c0e8b8f6227794fbce994d7df6a4add
   championName: 
   championCost: 1
   originTraits:
   - {fileID: 11400000, guid: 62b22b10271fbe04fb916e8f657a7cbd, type: 2}
   classTraits:
   - {fileID: 11400000, guid: 3f8695cba909e6d489f702d3205d9baf, type: 2}
-  figure: {fileID: 0}
+  figure: {fileID: 643757829239472953, guid: b8a7eaf8af9ddab4b979ac3b488e21ae, type: 3}

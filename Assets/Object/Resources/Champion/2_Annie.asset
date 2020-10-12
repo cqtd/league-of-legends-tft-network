@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
   m_Name: 2_Annie
   m_EditorClassIdentifier: 
-  guid:
-    guidBytes: fb9c2a6165b95d4ba6e5261b1b75e4e3
   championName: 
   championCost: 2
   originTraits:
   - {fileID: 11400000, guid: 744798f5461a7b34297885a1a7e52c13, type: 2}
   classTraits:
   - {fileID: 11400000, guid: a9aa8d92c0e1b9c47846054d5d2473fa, type: 2}
-  figure: {fileID: 0}
+  figure: {fileID: 643757829239472953, guid: b8a7eaf8af9ddab4b979ac3b488e21ae, type: 3}

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CQ.LeagueOfLegends.TFT.Network
 {
@@ -33,6 +33,20 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		{
 			// @TODO : Implement random next logic
 			return Resources.Load<ChampionArchetype>("Champion/3_Jinx");
+		}
+		
+		public static ChampionArchetype PickSushiRandom(EMatchTheme theme)
+		{
+#if UNITY_EDITOR
+			var archetypes = UnityEditor.AssetDatabase.FindAssets("t:ChampionArchetype")
+				.Select(UnityEditor.AssetDatabase.GUIDToAssetPath)
+				.Select(UnityEditor.AssetDatabase.LoadAssetAtPath<ChampionArchetype>).ToList();
+			
+			// @TODO : Implement random next logic
+			return archetypes[Random.Range(0, archetypes.Count)];
+#else
+			return Resources.Load<ChampionArchetype>("Champion/3_Jinx");
+#endif
 		}
 	}
 }

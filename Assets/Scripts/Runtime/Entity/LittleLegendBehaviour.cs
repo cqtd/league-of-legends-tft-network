@@ -1,17 +1,16 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using Bolt;
+﻿using Bolt;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions;
 
 namespace CQ.LeagueOfLegends.TFT.Network
 {
-	[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
+	[RequireComponent(typeof(NavMeshAgent))]
 	public class LittleLegendBehaviour : EntityEventListener<ILittleLegendState>
 	{
 		Camera mainCamera;
 		Vector3 lastPosition;
+		
 		public float surfaceOffset = 0.2f;
 		public float threshold = 1.5f;
 
@@ -22,8 +21,9 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		static readonly int pSpeed = Animator.StringToHash("Speed");
 		static readonly int pIsMoving = Animator.StringToHash("IsMoving");
 
+		Vector3 localSpawnPosition;
+
 		FrozenChampBehaviour takenChampion;
-		Transform nearBy;
 
 		public NavMeshAgent agent { get; private set; }
 		
@@ -31,114 +31,141 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		{
 			base.Attached();
 			
-			Debug.Log("Attached");
+			InitComponents();
+			InitStates();
+			InitCallbacks();
+		}
+
+		void InitComponents()
+		{
+			agent = GetComponent<NavMeshAgent>();
 			
+			agent.updateRotation = true;
+			agent.updatePosition = true;
+		}
+
+		void InitStates()
+		{
+			//state init
+			state.SetTransforms(state.Transform, transform);
+			state.SetAnimator(GetComponent<Animator>());
+			
+			// need to chk how this works.
+			state.Animator.applyRootMotion = entity.IsOwner;
+		}
+
+		void InitCallbacks()
+		{
+			// state.AddCallback("CanMove", OnCanMoveChanged);
+			// state.AddCallback("Destination", OnDestinationChanged);
+		}
+
+		public override void OnEvent(DestinationSetEvent evnt)
+		{
+			base.OnEvent(evnt);
+
+			if (entity.IsOwner)
+			{
+				agent.SetDestination(evnt.Destination);
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public override void SimulateOwner()
+		{
+			base.SimulateOwner();
+			
+			// 서버(Owner)에서 Animator 업데이트 합니다.
+			float speed = agent.velocity.magnitude;
+			float speedRate = speed / (agent.speed + 0.1f);
+			
+			state.Animator.SetFloat(pSpeed, speedRate);
+			if (speedRate > 0.1f)
+			{
+				state.Animator.SetBool(pIsMoving, true);
+			}
+			else
+			{
+				state.Animator.SetBool(pIsMoving, false);
+			}
+		}
+
+		public override void SimulateController()
+		{
+			base.SimulateController();
+			
+			// 컨트롤러에서 입력을 받습니다.
+			if (Input.GetMouseButtonDown(1))
+			{
+				Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+				if (!Physics.Raycast(ray, out RaycastHit hit))
+				{
+					return;
+				}
+
+				Vector3 dest = hit.point + hit.normal * surfaceOffset;
+				if (dest != lastPosition)
+				{
+					if (!state.CanMove)
+					{
+						if (Vector3.Distance(dest, localSpawnPosition) < threshold)
+						{
+							lastPosition = dest;
+				
+							SetDestination(dest);								
+						}
+					}
+					else
+					{
+						lastPosition = dest;
+				
+						SetDestination(dest);
+					}
+				}
+			}
+		}
+
+		public override void ControlGained()
+		{
+			base.ControlGained();
+
+			localSpawnPosition = transform.position;
+			
+			// 로컬 클라이언트 컨트롤에서 트랜스폼을 할당해야 모든 클라이언트로 동기화됨
+			// -> 이렇게 하면 결국 클라이언트에게 무브먼트 동작을 맡기는 거 아닌가? 검증은? 시발
+			// -> Owner가 아니면 state를 변경할 수가 없게 되어있다.
 			state.SetTransforms(state.Transform, transform);
 			state.SetAnimator(GetComponent<Animator>());
 
 			// need to chk how this works.
-			state.Animator.applyRootMotion = entity.IsOwner;
-
-			if (entity.IsOwner)
-			{
-				// 카메라 붙이기
-				mainCamera = Camera.main;
-				Assert.IsNotNull(mainCamera);
+			state.Animator.applyRootMotion = entity.HasControl;
 			
-				GameObject gimbal = new GameObject("Gimbal");
-				
-				gimbal.transform.position = state.Transform.Position;
-				gimbal.transform.rotation = state.Transform.Rotation;
+			// 카메라 붙이기
+			mainCamera = Camera.main;
+			Assert.IsNotNull(mainCamera);
 			
-				mainCamera.transform.SetParent(gimbal.transform);
-				mainCamera.transform.localPosition = new Vector3(0, 32 ,-20);
-				mainCamera.transform.localRotation = Quaternion.Euler(Vector3.right * 50);
-
-				mainCamera.fieldOfView = 25;
-
-				agent = GetComponent<NavMeshAgent>();
-
-				agent.updateRotation = true;
-				agent.updatePosition = true;				
-			}
+			GameObject gimbal = new GameObject("Gimbal");
+				
+			gimbal.transform.position = state.Transform.Position;
+			gimbal.transform.rotation = state.Transform.Rotation;
 			
-			state.AddCallback("CanMove", OnCanMoveChanged);
+			mainCamera.transform.SetParent(gimbal.transform);
+			mainCamera.transform.localPosition = new Vector3(0, 32 ,-20);
+			mainCamera.transform.localRotation = Quaternion.Euler(Vector3.right * 50);
+
+			mainCamera.fieldOfView = 25;
 		}
 
-		void OnCanMoveChanged()
+		void SetDestination(Vector3 position)
 		{
-			if (state.CanMove)
-			{
-				nearBy.gameObject.SetActive(false);
-			}
-			else
-			{
-				nearBy.gameObject.SetActive(true);
-			}
-		}
-
-		public void Set(Transform trm)
-		{
-			this.nearBy = trm;
-		}
-
-		void Update()
-		{
-			if (entity.IsOwner)
-			{
-				if (Input.GetMouseButtonDown(1))
-				{
-					Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-					if (!Physics.Raycast(ray, out RaycastHit hit))
-					{
-						return;
-					}
-
-					Vector3 dest = hit.point + hit.normal * surfaceOffset;
-					if (dest != lastPosition)
-					{
-						if (!state.CanMove)
-						{
-							if (Vector3.Distance(dest, nearBy.transform.position) < threshold)
-							{
-								lastPosition = dest;
-				
-								SetTarget(dest);								
-							}
-						}
-						else
-						{
-							lastPosition = dest;
-				
-							SetTarget(dest);
-						}
-					}
-				}
-				
-				float speed = agent.velocity.magnitude;
-				float speedRate = speed / (agent.speed + 0.1f);
+			// state.Destination = position;
 			
-				state.Animator.SetFloat(pSpeed, speedRate);
-				if (speedRate > 0.1f)
-				{
-					state.Animator.SetBool(pIsMoving, true);
-				}
-				else
-				{
-					state.Animator.SetBool(pIsMoving, false);
-				}
-			}
-		}
-
-		void OnDrawGizmos()
-		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawSphere(lastPosition, threshold);
-		}
-
-		void SetTarget(Vector3 position)
-		{
-			this.agent.SetDestination(position);
+			DestinationSetEvent evnt = DestinationSetEvent.Create(entity);
+			evnt.Destination = position;
+			
+			evnt.Send();
 			
 			CursorEffect.Spawn(position, null);
 		}

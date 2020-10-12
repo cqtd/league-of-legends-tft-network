@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
   m_Name: 5_Azir
   m_EditorClassIdentifier: 
-  guid:
-    guidBytes: 760580d94168f947bd2532a63041ef91
   championName: 
   championCost: 5
   originTraits:
@@ -21,4 +19,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b631baaacd3d09345b21c86108294f6d, type: 2}
   classTraits:
   - {fileID: 11400000, guid: c90f1b7deddc73b41976fa4b61e9136e, type: 2}
-  figure: {fileID: 0}
+  figure: {fileID: 643757829239472953, guid: b8a7eaf8af9ddab4b979ac3b488e21ae, type: 3}

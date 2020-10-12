@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
   m_Name: 4_Ashe
   m_EditorClassIdentifier: 
-  guid:
-    guidBytes: 0c1cc92ddf91594d8c1470e4b12f1ff3
   championName: 
   championCost: 4
   originTraits:
   - {fileID: 11400000, guid: fd352684cc6730f4984e1590adf6c967, type: 2}
   classTraits:
   - {fileID: 11400000, guid: 3526601801b79564cbcf25b1cb4c2abb, type: 2}
-  figure: {fileID: 0}
+  figure: {fileID: 643757829239472953, guid: b8a7eaf8af9ddab4b979ac3b488e21ae, type: 3}

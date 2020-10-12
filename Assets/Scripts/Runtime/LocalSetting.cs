@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CQ.LeagueOfLegends.TFT.Network
 {
-	public sealed class LocalSetUp : MonoBehaviour
+	public sealed class LocalSetting : MonoBehaviour
 	{
 		[SerializeField] int frameRate = 60;
 		[SerializeField] Vector2 resolution = new Vector2(1280, 720);

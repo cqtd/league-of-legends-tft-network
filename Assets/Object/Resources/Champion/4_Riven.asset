@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
   m_Name: 4_Riven
   m_EditorClassIdentifier: 
-  guid:
-    guidBytes: 13650ca84ab72049ac97485a9095415b
   championName: 
   championCost: 4
   originTraits:
   - {fileID: 11400000, guid: 677610d07e046234491ba01acbca8d2a, type: 2}
   classTraits:
   - {fileID: 11400000, guid: cd93eb58d025723489ee7dbaa2c8f72e, type: 2}
-  figure: {fileID: 0}
+  figure: {fileID: 643757829239472953, guid: b8a7eaf8af9ddab4b979ac3b488e21ae, type: 3}

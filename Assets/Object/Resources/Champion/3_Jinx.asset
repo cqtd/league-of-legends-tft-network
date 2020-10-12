@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eaf1740457e42cbb8bc321f8aae689e, type: 3}
   m_Name: 3_Jinx
   m_EditorClassIdentifier: 
-  guid:
-    guidBytes: 6565beb48b7ab445a45109b8aaa20ef7
   championName: Jinx
   championCost: 3
   originTraits:

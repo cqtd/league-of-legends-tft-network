@@ -13,10 +13,6 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		
 		public float surfaceOffset = 0.2f;
 		public float threshold = 1.5f;
-
-		[Header("Debug View")] 
-		public float velocityMag_Debug;
-		public float speedMax_Debug;
 		
 		static readonly int pSpeed = Animator.StringToHash("Speed");
 		static readonly int pIsMoving = Animator.StringToHash("IsMoving");
@@ -46,9 +42,12 @@ namespace CQ.LeagueOfLegends.TFT.Network
 
 		void InitStates()
 		{
-			//state init
-			state.SetTransforms(state.Transform, transform);
-			state.SetAnimator(GetComponent<Animator>());
+			if (entity.IsOwner)
+			{
+				//state init
+				state.SetTransforms(state.Transform, transform);
+				state.SetAnimator(GetComponent<Animator>());
+			}
 			
 			// need to chk how this works.
 			state.Animator.applyRootMotion = entity.IsOwner;
@@ -135,12 +134,11 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			
 			// 로컬 클라이언트 컨트롤에서 트랜스폼을 할당해야 모든 클라이언트로 동기화됨
 			// -> 이렇게 하면 결국 클라이언트에게 무브먼트 동작을 맡기는 거 아닌가? 검증은? 시발
-			// -> Owner가 아니면 state를 변경할 수가 없게 되어있다.
-			state.SetTransforms(state.Transform, transform);
-			state.SetAnimator(GetComponent<Animator>());
+			// -> Owner가 아니면 state를 변경할 수가 없게 되어있다. Controller 자체는 state에 액세스에 set하는건 불가
+			// 그럼 대체 왜 있냐... 이제부터 알아 볼 것
 
-			// need to chk how this works.
-			state.Animator.applyRootMotion = entity.HasControl;
+			// state.SetTransforms(state.Transform, transform);
+			// state.SetAnimator(GetComponent<Animator>());
 			
 			// 카메라 붙이기
 			mainCamera = Camera.main;
@@ -160,8 +158,8 @@ namespace CQ.LeagueOfLegends.TFT.Network
 
 		void SetDestination(Vector3 position)
 		{
-			// state.Destination = position;
-			
+			// 목적지 설정을 메시지로 처리함
+			// 실제 agent 이동, 물리 시뮬레이션은 서버(Owner)가 실행
 			DestinationSetEvent evnt = DestinationSetEvent.Create(entity);
 			evnt.Destination = position;
 			
@@ -172,7 +170,8 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		
 		void OnTriggerEnter(Collider other)
 		{
-			if (BoltNetwork.IsServer)
+			// 서버(Owner) 물리 동작
+			if (entity.IsOwner)
 			{
 				if (takenChampion != null)
 					return;

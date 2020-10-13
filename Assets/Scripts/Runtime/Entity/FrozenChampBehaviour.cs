@@ -57,32 +57,25 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		{
 			state.FigureKey = $"Figures/{archetype.figure.name}";
 			
-			// plateMeshRenderer.material = Instantiate(plateMeshRenderer.sharedMaterial);
-
 			switch (archetype.championCost)
 			{
 				case ECost.Cost1:
-					// plateMeshRenderer.material.SetColor(pColor, CO.Cost1 * intensity);
 					state.FigureData.Color = CO.Cost1 * intensity;
 					break;
 				
 				case ECost.Cost2:
-					// plateMeshRenderer.material.SetColor(pColor, CO.Cost2 * intensity);
 					state.FigureData.Color = CO.Cost2 * intensity;
 					break;
 				
 				case ECost.Cost3:
-					// plateMeshRenderer.material.SetColor(pColor, CO.Cost3 * intensity);
 					state.FigureData.Color = CO.Cost3 * intensity;
 					break;
 				
 				case ECost.Cost4:
-					// plateMeshRenderer.material.SetColor(pColor, CO.Cost4 * intensity);
 					state.FigureData.Color = CO.Cost4 * intensity;
 					break;
 				
 				case ECost.Cost5:
-					// plateMeshRenderer.material.SetColor(pColor, CO.Cost5 * intensity);
 					state.FigureData.Color = CO.Cost5 * intensity;
 					break;
 				
@@ -94,7 +87,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		public bool HasOwner {
 			get
 			{
-				return state.Owner != null;
+				return state.OwnerLegend != null;
 			}
 		}
 
@@ -125,7 +118,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 
 		void TakenServer(LittleLegendBehaviour takenBy)
 		{
-			state.Owner = takenBy.entity;
+			state.OwnerLegend = takenBy.entity;
 			
 		}
 

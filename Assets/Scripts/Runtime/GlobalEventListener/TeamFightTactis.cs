@@ -11,15 +11,22 @@ namespace CQ.LeagueOfLegends.TFT.Network
 {
 	public class TeamFightTactis : GlobalEventListener
 	{
+		[Header("Path")]
 		[SerializeField] GameObject[] championSpawnPoints = new GameObject[0];
+		[SerializeField] GameObject[] legendSpawnPoints = new GameObject[0];
+		
+		[Header("UI")]
 		[SerializeField] Button roundStartButton = default;
 		
 		[NonSerialized] readonly List<string> logMessages = new List<string>();
 		
+		[NonSerialized] readonly Dictionary<GameObject, FrozenChampBehaviour> figures = new Dictionary<GameObject, FrozenChampBehaviour>();
+		[NonSerialized] readonly Dictionary<GameObject, LittleLegendBehaviour> legends = new Dictionary<GameObject, LittleLegendBehaviour>();
+		
 		void Awake()
 		{
 			roundStartButton.interactable = false;
-			roundStartButton.onClick.AddListener(BeginRound);
+
 			
 			roundStartButton.GetComponentInChildren<TextMeshProUGUI>().text = "응답 대기중";
 		}
@@ -28,7 +35,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		{
 			roundStartButton.gameObject.SetActive(false);
 
-			StartCoroutine(SpawnSushiOnServer(championSpawnPoints));
+			StartCoroutine(SpawnSushiOnServer());
 		}
 
 		public override void SceneLoadLocalDone(string scene, IProtocolToken token)
@@ -56,7 +63,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 
 		void SceneLoadLocalDoneServer(string scene, IProtocolToken token)
 		{
-			roundStartButton.gameObject.SetActive(true);
+			roundStartButton.onClick.AddListener(BeginRound);
 			roundStartButton.interactable = true;
 
 			roundStartButton.GetComponentInChildren<TextMeshProUGUI>().text = "라운드 시작";
@@ -66,28 +73,29 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			roundStartButton.gameObject.SetActive(false);
 		}
 
-		IEnumerator SpawnSushiOnServer(GameObject[] points, float delay = 0.8f)
+		IEnumerator SpawnSushiOnServer(float delay = 0.8f)
 		{
-			GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-
-			var connections = BoltNetwork.Connections.ToArray();
+			// 꼬마 전설이 스폰
+			BoltConnection[] connections = BoltNetwork.Connections.ToArray();
 
 			for (int i = 0; i < connections.Length; i++)
 			{
+				yield return new WaitForSeconds(delay);
+				
 				BoltConnection connection = connections[i];
 
-				Vector3 position = spawnPoints[i].transform.position;
-				Quaternion rotation = spawnPoints[i].transform.rotation * Quaternion.Euler(0, 180, 0);
+				Vector3 position = legendSpawnPoints[i].transform.position;
+				Quaternion rotation = legendSpawnPoints[i].transform.rotation * Quaternion.Euler(0, 180, 0);
 				
 				BoltEntity instance = BoltNetwork.Instantiate(BoltPrefabs.LittleLegend, position, rotation);
 				LittleLegendBehaviour littleLegend = instance.GetComponent<LittleLegendBehaviour>();
 				
 				instance.AssignControl(connection);
+				legends[legendSpawnPoints[i]] = littleLegend;
 			}
 			
-			GameObject prefab = Resources.Load<GameObject>("Frozen Champion");
-
-			foreach (GameObject championSpawnPoint in points)
+			// 초밥 스폰
+			foreach (GameObject championSpawnPoint in championSpawnPoints)
 			{
 				yield return new WaitForSeconds(delay);
 
@@ -101,6 +109,8 @@ namespace CQ.LeagueOfLegends.TFT.Network
 				instance.transform.localPosition = Vector3.zero;
 				instance.transform.localRotation = Quaternion.identity;
 				instance.transform.localScale = Vector3.one;
+
+				figures[championSpawnPoint] = fc;
 			}
 			
 			yield return new WaitForSeconds(3.0f);

@@ -443,8 +443,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   surfaceOffset: 0.2
   threshold: 1.5
-  velocityMag_Debug: 0
-  speedMax_Debug: 0
 --- !u!114 &5403226212121065797
 MonoBehaviour:
   m_ObjectHideFlags: 0

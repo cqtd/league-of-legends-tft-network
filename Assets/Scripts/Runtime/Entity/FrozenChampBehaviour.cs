@@ -84,7 +84,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			}
 		}
 
-		public bool HasOwner {
+		public bool HasOwnerLegend {
 			get
 			{
 				return state.OwnerLegend != null;

@@ -18,6 +18,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		static readonly int pIsMoving = Animator.StringToHash("IsMoving");
 
 		Vector3 localSpawnPosition;
+		Animator localAnimator;
 
 		FrozenChampBehaviour takenChampion;
 
@@ -38,6 +39,8 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			
 			agent.updateRotation = true;
 			agent.updatePosition = true;
+
+			localAnimator = GetComponent<Animator>();
 		}
 
 		void InitStates()
@@ -46,9 +49,16 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			{
 				//state init
 				state.SetTransforms(state.Transform, transform);
-				state.SetAnimator(GetComponent<Animator>());
+				state.SetAnimator(localAnimator);
+
+				// need to chk how this works.
+				state.Animator.applyRootMotion = entity.IsOwner;
 			}
-			
+
+
+			state.SetTransforms(state.Transform, transform);
+			state.SetAnimator(localAnimator);
+
 			// need to chk how this works.
 			state.Animator.applyRootMotion = entity.IsOwner;
 		}
@@ -179,7 +189,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 				FrozenChampBehaviour fc = other.GetComponent<FrozenChampBehaviour>();
 				
 				if (fc == null) return;
-				if (fc.HasOwner == true) return;
+				if (fc.HasOwnerLegend == true) return;
 				
 				TakeFrozenChamp(fc);
 			}

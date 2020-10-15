@@ -45,17 +45,6 @@ namespace CQ.LeagueOfLegends.TFT.Network
 
 		void InitStates()
 		{
-			if (entity.IsOwner)
-			{
-				//state init
-				state.SetTransforms(state.Transform, transform);
-				state.SetAnimator(localAnimator);
-
-				// need to chk how this works.
-				state.Animator.applyRootMotion = entity.IsOwner;
-			}
-
-
 			state.SetTransforms(state.Transform, transform);
 			state.SetAnimator(localAnimator);
 

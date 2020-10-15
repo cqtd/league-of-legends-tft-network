@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Bolt;
+using CQ.LeagueOfLegends.TFT.Network.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace CQ.LeagueOfLegends.TFT.Network
@@ -59,6 +61,8 @@ namespace CQ.LeagueOfLegends.TFT.Network
 					SceneLoadLocalDoneClient(scene, token);
 				}	
 			}
+			
+			HUDManager.Load();
 		}
 
 		void SceneLoadLocalDoneServer(string scene, IProtocolToken token)

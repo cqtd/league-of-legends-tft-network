@@ -13,6 +13,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		public List<Traits> classTraits = new List<Traits>();
 
 		public GameObject figure = default;
+		public Sprite sprite = default;
 	}
 
 	public enum ECost

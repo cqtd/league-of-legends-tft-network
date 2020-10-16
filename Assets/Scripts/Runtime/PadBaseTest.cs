@@ -9,6 +9,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		void Start()
 		{
 			pad.SetUnit(GetComponent<DummyUnit>());
+			pad.OnUnitSwap();
 		}
 	}
 }

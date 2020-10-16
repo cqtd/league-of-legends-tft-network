@@ -13,7 +13,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 
 	public static class DragUtility
 	{
-		static bool isDragging = false;
+		public static bool isDragging = false;
 		static PadBase startPad;
 		static PadBase endPad;
 		
@@ -38,22 +38,55 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			isDragging = false;
 			endPad = end;
 
-			if (endPad)
+			if (startPad && endPad)
 			{
-				var temp = endPad.GetUnit();
-				endPad.SetUnit(startPad.GetUnit());
-				startPad.SetUnit(temp);
+				if (CanEndDrag(end))
+				{
+					DummyUnit temp = endPad.GetUnit();
+					if (temp != null)
+					{
+						endPad.SetUnit(startPad.GetUnit());
+						startPad.SetUnit(temp);
 			
-				startPad.GetUnit()?.OnEndDrag();
-				endPad.GetUnit()?.OnEndDrag();
+						startPad.GetUnit()?.OnEndDrag();
+						endPad.GetUnit()?.OnEndDrag();
+						
+						startPad.OnUnitSwap();
+						endPad.OnUnitSwap();
+					}
+					else
+					{
+						endPad.SetUnit(startPad.GetUnit());
+						startPad.SetUnit(temp);
+			
+						startPad.GetUnit()?.OnEndDrag();
+						endPad.GetUnit()?.OnEndDrag();
+						
+						startPad.OnUnitMove();
+						endPad.OnUnitMove();
+					}
+				}
+				else
+				{
+					startPad.OnCancelDrag();
+				}
 			}
 			else
 			{
-				startPad.OnUnitUpdate();
+				if (startPad)
+					startPad.OnCancelDrag();
 			}
 
 			startPad = null;
 			endPad = null;
+		}
+
+		public static bool CanEndDrag(PadBase end)
+		{
+			if (end.padOwner != LocalPlayer.Instance.localPlayer.uniqueIndex)
+				return false;
+
+			return true;
 		}
 
 		public static bool CanBeginDrag()

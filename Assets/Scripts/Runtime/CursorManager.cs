@@ -34,7 +34,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			if (!Physics.Raycast(ray, out RaycastHit hit, rayLength, layerMask))
 			{
 				Debug.DrawRay(current.transform.position, ray.direction * rayLength, Color.red);
-				hitPoint = Vector3.zero;
+				
 				dummy = null;
 				return;
 			}

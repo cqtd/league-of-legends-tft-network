@@ -5,7 +5,7 @@
 	/// </summary>
 	public abstract class Singleton<T> where T : class, new()
 	{
-		public static T _inst;
+		static T _inst;
 
 		public static T Instance {
 			get

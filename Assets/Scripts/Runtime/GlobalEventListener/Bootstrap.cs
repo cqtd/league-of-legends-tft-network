@@ -17,7 +17,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 
 		void Start()
 		{
-			UIManager.Instance.Open<BootstrapCanvas>(out BootstrapCanvas bsCanvas);
+			BootstrapCanvas bsCanvas = UIManager.Instance.Open<BootstrapCanvas>();
 			bsCanvas.Initialize(this);
 		}
 		

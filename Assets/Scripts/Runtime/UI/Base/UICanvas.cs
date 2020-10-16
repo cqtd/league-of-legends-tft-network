@@ -1,22 +1,40 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace CQ.LeagueOfLegends.TFT.Network.UI
 {
+	public abstract class UICanvas<T> : UICanvas where T : MonoBehaviour
+	{
+		public T Entity { get; private set; } = default;
+
+		public virtual void Initialize(T entity)
+		{
+			this.Entity = entity;
+		}
+	}
+	
 	[RequireComponent(typeof(Canvas))]
-	public abstract class UICanvas : MonoBehaviour
+	public abstract class UICanvas : MonoBehaviour, IDisposable
 	{
 		[Header("UI Canvas")]
-		[SerializeField] Canvas canvas = default;
-		
+		[SerializeField] protected Canvas canvas = default;
+
+		bool bIsStartInit = false;
 		bool bIsInitComponent = false;
 		bool bIsInitialized = false;
+
+		[NonSerialized] public readonly UnityEvent openEvent = new UnityEvent();
+		[NonSerialized] public readonly UnityEvent closeEvent = new UnityEvent();
 
 		void InitComponentInternal()
 		{
 			if (!bIsInitComponent)
+			{
 				InitComponent();
+				bIsInitComponent = true;
+			}
 		}
 
 		void InitializeInternal()
@@ -24,46 +42,39 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 			if (!bIsInitialized)
 				Initialize();
 		}
-		
-		
-		protected virtual void InitComponent()
-		{
-			bIsInitComponent = true;
-		}
 
+		protected abstract void InitComponent();
+
+		// 최초 Initialize : Start
 		protected virtual void Start()
 		{
-			InitComponent();
-			Initialize();
+			InitializeInternal();
+			bIsStartInit = true;
 		}
 
+		// SetActive, False는 OnEnable
 		protected virtual void OnEnable()
 		{
-			InitComponent();
-			Initialize();
+			if (bIsStartInit)
+			{
+				InitializeInternal();
+			}
 		}
 
-		protected void OnDisable()
+		public virtual void Close()
 		{
-			
-		}
-
-		public virtual void Show()
-		{
-			gameObject.SetActive(true);
-			
-			InitComponent();
-			Initialize();
-		}
-
-		public void Hide()
-		{
+			Dispose();
 			gameObject.SetActive(false);
+			
+			closeEvent?.Invoke();
 		}
 
 		public virtual void Initialize()
 		{
+			InitComponentInternal();	
+			bIsInitialized = true;
 			
+			openEvent?.Invoke();
 		}
 
 		public int GetSortingOrder()
@@ -79,7 +90,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 
 		public void ResetName(string type)
 		{
-			gameObject.name = $"[{GetSortingOrder()}] {type}";
+			gameObject.name = $"[{GetSortingOrder():000}] {type}";
 		}
 
 
@@ -91,15 +102,8 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 			UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
 		}
 #endif
+		public abstract void Dispose();
 	}
 
-	public abstract class UICanvas<T> : UICanvas where T : MonoBehaviour
-	{
-		public T Entity { get; private set; } = default;
 
-		public virtual void Initialize(T entity)
-		{
-			this.Entity = entity;
-		}
-	}
 }

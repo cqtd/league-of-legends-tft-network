@@ -10,6 +10,8 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 	{
 		[SerializeField] Canvas root = default;
 		[SerializeField] CanvasScaler scaler = default;
+
+		TransitionCanvas transition = default;
 		
 		Dictionary<string, UICanvas> cachedCanvases = default;
 
@@ -30,6 +32,16 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 			base.Awake();
 			
 			SetResolutionInternal();
+			TransitionCanvas prefab = Resources.Load<TransitionCanvas>(GetPrefabPathInternal("TransitionCanvas"));
+			transition = Instantiate(prefab, root.transform);
+
+			transition.transform.localPosition = Vector3.zero;
+			transition.transform.localScale = Vector3.one;
+			
+			transition.transform.SetAsLastSibling();
+			transition.SetCanvasConfig(true, 999);
+			
+			SetCanvasNameInternal(transition, "Transition Canvas");
 		}
 
 		#region Public
@@ -45,28 +57,23 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 				canvas.transform.localScale = Vector3.one;
 				canvas.transform.SetAsLastSibling();
 				
+				transition.transform.SetAsLastSibling();
 
 				CachedCanvases[typeof(T).Name] = canvas;
 			}
 			
 			canvas.SetCanvasConfig(true, GetTopWindowCanvasInternal() + 1);
-			SetCanvasNameInternal(canvas);
-
+			SetCanvasNameInternal(canvas, typeof(T).Name);
+			
 			return canvas as T;
 		}
 		
-		public void Open<T>() where T : UICanvas
+		public T Open<T>() where T : UICanvas
 		{
 			T canvas = GetCanvas<T>();
-			canvas.Show();
-		}
-		
-		public void Open<T>(out T handle) where T : UICanvas
-		{
-			T canvas = GetCanvas<T>();
-			canvas.Show();
-
-			handle = canvas;
+			canvas.gameObject.SetActive(true);
+			
+			return canvas;
 		}
 		
 		public void Open(string canvasName)
@@ -79,17 +86,19 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 				canvas.transform.localPosition = Vector3.zero;
 				canvas.transform.localScale = Vector3.one;
 				canvas.transform.SetAsLastSibling();
-
+				
+				transition.transform.SetAsLastSibling();
+				
 				CachedCanvases[canvasName] = canvas;
 			}
 
 			canvas.SetCanvasConfig(true, GetTopWindowCanvasInternal() + 1);
-			SetCanvasNameInternal(canvas);
+			SetCanvasNameInternal(canvas, canvasName);
 			
-			canvas.Show();
+			canvas.gameObject.SetActive(true);
 		}
 
-		public void Close<T>() where T : UICanvas
+		public void Close<T>(bool destroy = false) where T : UICanvas
 		{
 			if (!CachedCanvases.TryGetValue(typeof(T).Name, out UICanvas canvas))
 			{
@@ -99,10 +108,16 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 				return;
 			}
 			
-			canvas.Hide();
+			canvas.Close();
+
+			if (destroy)
+			{
+				CachedCanvases.Remove(typeof(T).Name);
+				Destroy(canvas.gameObject);
+			}
 		}
 		
-		public void Close(string canvasName)
+		public void Close(string canvasName, bool destroy = false)
 		{
 			if (!CachedCanvases.TryGetValue(canvasName, out UICanvas canvas))
 			{
@@ -112,16 +127,22 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 				return;
 			}
 			
-			canvas.Hide();
+			canvas.Close();
+			
+			if (destroy)
+			{
+				CachedCanvases.Remove(canvasName);
+				Destroy(canvas.gameObject);
+			}
 		}
 		
 		#endregion
 
 		#region Private
 
-		void SetCanvasNameInternal<T>(T canvas) where T : UICanvas
+		void SetCanvasNameInternal<T>(T canvas, string canvasName) where T : UICanvas
 		{
-			canvas.ResetName(typeof(T).Name);
+			canvas.ResetName(canvasName);
 		}
 
 		int GetTopWindowCanvasInternal()

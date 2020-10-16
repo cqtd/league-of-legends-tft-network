@@ -18,15 +18,6 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 		{
 			base.Initialize(entity);
 			
-			runServer.onClick.AddListener(RunServerInternal);
-			runClient.onClick.AddListener(RunClientInternal);
-			
-			ipAddressField.onValueChanged.AddListener(OnIpAddressChanged);
-			ipAddressField.onEndEdit.AddListener(OnIpAddressChanged);
-			
-			portField.onValueChanged.AddListener(OnPortChanged);
-			portField.onEndEdit.AddListener(OnPortChanged);
-			
 			OnIpAddressChanged(ipAddressField.text);
 			OnPortChanged(portField.text);
 		}
@@ -38,8 +29,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 			runServer.interactable = false;
 			runClient.interactable = false;
 			
-			runServer.onClick.RemoveAllListeners();
-			runClient.onClick.RemoveAllListeners();
+			Dispose();
 		}
 
 		void RunClientInternal()
@@ -48,9 +38,8 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 			
 			runServer.interactable = false;
 			runClient.interactable = false;
-			
-			runServer.onClick.RemoveAllListeners();
-			runClient.onClick.RemoveAllListeners();
+
+			Dispose();
 		}
 
 		void OnIpAddressChanged(string value)
@@ -61,6 +50,24 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 		void OnPortChanged(string value)
 		{
 			Entity.port = value;
+		}
+
+		protected override void InitComponent()
+		{
+			runServer.onClick.AddListener(RunServerInternal);
+			runClient.onClick.AddListener(RunClientInternal);
+			
+			ipAddressField.onValueChanged.AddListener(OnIpAddressChanged);
+			ipAddressField.onEndEdit.AddListener(OnIpAddressChanged);
+			
+			portField.onValueChanged.AddListener(OnPortChanged);
+			portField.onEndEdit.AddListener(OnPortChanged);
+		}
+
+		public override void Dispose()
+		{
+			runServer.onClick.RemoveAllListeners();
+			runClient.onClick.RemoveAllListeners();
 		}
 	}
 }

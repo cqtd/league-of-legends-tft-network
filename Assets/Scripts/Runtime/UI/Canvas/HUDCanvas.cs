@@ -8,11 +8,21 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 		[Header("HUD")]
 		[SerializeField] UIControlPanel panel = default;
 
+		protected override void InitComponent()
+		{
+			
+		}
+
 		public override void Initialize()
 		{
 			base.Initialize();
 
 			panel.Repaint();
+		}
+
+		public override void Dispose()
+		{
+			
 		}
 	}
 }

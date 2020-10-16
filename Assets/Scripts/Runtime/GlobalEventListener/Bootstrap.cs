@@ -1,42 +1,34 @@
-﻿using System.Collections;
-using TMPro;
+﻿using System;
 using UdpKit;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace CQ.LeagueOfLegends.TFT.Network
 {
+	using UI;
+	
 	public sealed class Bootstrap : Bolt.GlobalEventListener
 	{
-		[SerializeField] Button runServer = default;
-		[SerializeField] Button runClient = default;
-
-		[SerializeField] TMP_InputField ipAddressField = default;
-		[SerializeField] TMP_InputField portField = default;
-
 		[SerializeField] string sceneName = default;
+
+		[NonSerialized] 
+		public string ipAddress = default;
+		[NonSerialized] 
+		public string port = default;
 
 		void Start()
 		{
-			runServer.onClick.AddListener(RunServerInternal);
-			runClient.onClick.AddListener(RunClientInternal);
+			UIManager.Instance.Open<BootstrapCanvas>(out BootstrapCanvas bsCanvas);
+			bsCanvas.Initialize(this);
 		}
 		
-		void RunServerInternal()
+		public void RunServer()
 		{
 			BoltLauncher.StartServer(GetUdpEndPoint());
-			
-			runServer.interactable = false;
-			runClient.interactable = false;
 		}
 
-		void RunClientInternal()
+		public void RunClient()
 		{
 			BoltLauncher.StartClient();
-			
-			runServer.interactable = false;
-			runClient.interactable = false;
 		}
 
 		public override void BoltStartDone()
@@ -55,7 +47,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 
 		UdpEndPoint GetUdpEndPoint()
 		{
-			return UdpKit.UdpEndPoint.Parse($"{ipAddressField.text}:{portField.text}");
+			return UdpKit.UdpEndPoint.Parse($"{ipAddress}:{port}");
 		}
 	}
 }

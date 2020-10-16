@@ -62,7 +62,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 				}	
 			}
 			
-			HUDManager.Load();
+			UIManager.Instance.Open<HUDCanvas>();
 		}
 
 		void SceneLoadLocalDoneServer(string scene, IProtocolToken token)

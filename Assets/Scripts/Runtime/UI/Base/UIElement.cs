@@ -8,6 +8,11 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 		{
 			
 		}
+
+		public virtual void Repaint()
+		{
+			
+		}
 	}
 
 	public abstract class UIElement<T> : UIElement where T : Object

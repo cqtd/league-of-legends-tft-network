@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace CQ.LeagueOfLegends.TFT.Network
+namespace CQ
 {
-	[RequireComponent(typeof(Renderer))]
+	[RequireComponent(typeof(MeshRenderer))]
 	public class UVMapper : MonoBehaviour
 	{
 		[SerializeField] int targetMaterialIndex = 0;

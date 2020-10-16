@@ -68,5 +68,12 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 		{
 			
 		}
+
+		public override void Repaint()
+		{
+			base.Repaint();
+			
+			Refresh();
+		}
 	}
 }

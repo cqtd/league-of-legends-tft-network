@@ -1,6 +1,8 @@
 {
     "name": "TFT.Network.Firstpass",
-    "references": [],
+    "references": [
+        "GUID:c145b89d51b176948bcb06a495b80287"
+    ],
     "includePlatforms": [
         "Editor",
         "WindowsStandalone32",

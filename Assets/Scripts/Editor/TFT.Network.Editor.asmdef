@@ -1,0 +1,28 @@
+{
+    "name": "TFT.Network.Editor",
+    "references": [
+        "GUID:8cd1d7a2fefc849a8a7618c0e950d050",
+        "GUID:7449fe6f335b6447c93841d5609046d9",
+        "GUID:831409e8f9d13b5479a3baef9822ad34",
+        "GUID:a10ff188cbfd201409863c062b118e1d",
+        "GUID:d60799ab2a985554ea1a39cd38695018",
+        "GUID:a35efad8797223d499f8c68b1f545dbc",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:6546d7765b4165b40850b3667f981c26",
+        "GUID:283ea98f47172394aaa95a922aa81a49",
+        "GUID:23b1a6f7fcb8dd540baaf40ee1118809",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
+        "GUID:343deaaf83e0cee4ca978e7df0b80d21"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -23,13 +23,6 @@ namespace CQ.LeagueOfLegends.TFT.Network.Editor
 				{
 					process.Kill();
 				}
-				//
-				// if (process == null) continue;
-				// if (process.MainModule == null) continue;
-				// if (process.MainModule.FileName == standalone.FullName)
-				// {
-				// 	process.Kill();
-				// }
 			}
 		}
 		

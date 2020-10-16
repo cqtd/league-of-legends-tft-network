@@ -4,11 +4,11 @@ namespace CQ.LeagueOfLegends.TFT.Network
 {
 	public class PadBaseTest : MonoBehaviour
 	{
-		public DummyUnit unit = default;
+		public PadBase pad = default;
 
 		void Start()
 		{
-			GetComponent<PadBase>().SetUnit(unit);
+			pad.SetUnit(GetComponent<DummyUnit>());
 		}
 	}
 }

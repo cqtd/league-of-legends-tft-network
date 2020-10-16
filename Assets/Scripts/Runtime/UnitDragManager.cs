@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CQ.LeagueOfLegends.TFT.Network
 {
-	public class UnitPlaceTool : SingletonMono<UnitPlaceTool>
+	public class UnitDragManager : SingletonMono<UnitDragManager>
 	{
 		void Update()
 		{
@@ -16,6 +16,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 		static bool isDragging = false;
 		static PadBase startPad;
 		static PadBase endPad;
+		
 		public static void BeginDrag(PadBase start)
 		{
 			isDragging = true;
@@ -29,22 +30,6 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			if (isDragging)
 			{
 				startPad.GetUnit().transform.position = CursorManager.Instance.HitPoint + Vector3.up * 2;
-				return;
-				
-				if (PadBase.mouseHovered)
-				{
-					
-					startPad.GetUnit().transform.position = CursorManager.Instance.HitPoint + Vector3.up * 2;
-				}
-			
-				else if (CursorManager.dummy)
-				{
-					startPad.GetUnit().transform.position = CursorManager.Instance.HitPoint + Vector3.up * 2;
-				}
-				else
-				{
-					// startPad.GetUnit().transform.position = CursorManager.Instance.HitPoint + Vector
-				}
 			}
 		}
 
@@ -64,16 +49,11 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			}
 			else
 			{
-				startPad.SetUnit(startPad.GetUnit());
+				startPad.OnUnitUpdate();
 			}
 
 			startPad = null;
 			endPad = null;
-		}
-
-		public static bool CanEndDrag(Vector3 worldPos)
-		{
-			return true;
 		}
 
 		public static bool CanBeginDrag()

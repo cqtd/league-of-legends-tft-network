@@ -1,13 +1,23 @@
 ﻿using System;
 using UdpKit;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CQ.LeagueOfLegends.TFT.Network
 {
 	using UI;
 	
+	public enum EEditorMode {
+	    Bootstrap,
+	    TFT_Test,
+	}
+	
 	public sealed class Bootstrap : Bolt.GlobalEventListener
 	{
+		[Header("Editor Config")] [SerializeField]
+		EEditorMode mode = EEditorMode.Bootstrap;
+		
+		[Header("Bootstrap")]
 		[SerializeField] string sceneName = default;
 
 		[NonSerialized] 
@@ -17,8 +27,16 @@ namespace CQ.LeagueOfLegends.TFT.Network
 
 		void Start()
 		{
-			BootstrapCanvas bsCanvas = UIManager.Instance.Open<BootstrapCanvas>();
-			bsCanvas.Initialize(this);
+			if (mode == EEditorMode.Bootstrap)
+			{
+				BootstrapCanvas bsCanvas = UIManager.Instance.Open<BootstrapCanvas>();
+				bsCanvas.Initialize(this);
+			}
+			
+			else if (mode == EEditorMode.TFT_Test)
+			{
+				SceneManager.LoadScene("Scenes/TFT");
+			}
 		}
 		
 		public void RunServer()

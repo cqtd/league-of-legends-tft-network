@@ -29,18 +29,6 @@ namespace CQ.LeagueOfLegends.TFT
 		{
 			var matInstance = Instantiate(image.material);
 			image.material = matInstance;
-			
-			// fadeOut = image.material.DOFloat(0, radius, 1.0f);
-			// fadeIn = image.material.DOFloat(1, radius, 1.0f);
-			//
-			// fadeOut.Pause();
-			// fadeIn.Pause();
-			//
-			// fadeOut.SetEase(Ease.Linear);
-			// fadeIn.SetEase(Ease.Linear);
-			//
-			// fadeOut.SetAutoKill(false);
-			// fadeIn.SetAutoKill(false);
 		}
 
 		public void SetFocus(int screenX, int screenY)

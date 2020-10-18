@@ -31,19 +31,22 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 			}
 			
 			Refresh();
+
+			GameSession.Instance.onPropertyUpdate += Repaint;
 		}
 
 		void OnReRoll()
 		{
-
+			GameSession.Instance.DoBuyReroll();
 			
-			Refresh();
+			// Refresh();
 		}
 
 		void OnLevelUp()
 		{
+			GameSession.Instance.DoBuyExperience();
 			
-			Refresh();
+			// Refresh();
 		}
 
 		void OnLockToggle(bool isOn)
@@ -54,14 +57,18 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 
 		void Refresh()
 		{
-			levelText.text = $"{Random.Range(2, 7)} 레벨";
+			levelText.text = $"{GameSession.Instance.level} 레벨";
 			
-			int max = Random.Range(12, 24);
-			int cur = Random.Range(2, max - 2);
+			int max = GameSession.Instance.maxExp;
+			int cur = GameSession.Instance.EXP;
+			
 			expText.text = $"{cur}/{max}";
-			goldText.text = $"{Random.Range(0, 48)} 골드";
+			goldText.text = $"{GameSession.Instance.gold} 골드";
 
 			expSlider.value = (float)cur / max;
+
+			reRollButton.interactable = GameSession.Instance.CanBuyReroll();
+			levelUpButton.interactable = GameSession.Instance.CanBuyExperience();
 		}
 
 		void OnBuyChampion(int index)

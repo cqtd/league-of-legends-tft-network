@@ -18,6 +18,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 			base.Initialize();
 
 			panel.Repaint();
+			
 		}
 
 		public override void Dispose()

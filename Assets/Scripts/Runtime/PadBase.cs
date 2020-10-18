@@ -1,5 +1,7 @@
 ﻿using System;
+using Bolt.Compiler;
 using DG.Tweening;
+using UnityEditor;
 using UnityEngine;
 
 namespace CQ.LeagueOfLegends.TFT.Network
@@ -121,6 +123,22 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			highlightMesh.material = defaultMat;
 
 			mouseHovered = null;
+		}
+
+		void OnDestroy()
+		{
+			DomainReset();
+		}
+
+		void OnApplicationQuit()
+		{
+			DomainReset();
+		}
+
+		static void DomainReset()
+		{
+			onBeginDrag = null;
+			onEndDrag = null;
 		}
 	}
 }

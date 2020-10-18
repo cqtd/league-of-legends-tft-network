@@ -79,7 +79,7 @@ namespace CQ
 		/// <summary>
 		/// 도메인 리로드 없이 static 변수를 초기화합니다.
 		/// </summary>
-		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 		static void ReloadDomain()
 		{
 			Release();

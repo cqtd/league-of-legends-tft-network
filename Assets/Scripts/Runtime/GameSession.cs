@@ -58,6 +58,11 @@ namespace CQ.LeagueOfLegends.TFT.Network
 				exp = newExp;
 			}
 		}
+
+		public void AddGold(int value)
+		{
+			this.gold += value;
+		}
 		
 		void Start()
 		{
@@ -106,8 +111,8 @@ namespace CQ.LeagueOfLegends.TFT.Network
 					yield return new WaitForSeconds(1);
 				}
 				
-				gold += Random.Range(13, 25);
-				exp += 2;
+				AddGold(Random.Range(13, 25));
+				AddExp(2);
 				
 				onPropertyUpdate?.Invoke();
 			}
@@ -144,6 +149,7 @@ namespace CQ.LeagueOfLegends.TFT.Network
 			
 			onPropertyUpdate?.Invoke();
 		}
+
 
 		public void Sell()
 		{

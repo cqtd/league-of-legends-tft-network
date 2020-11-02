@@ -8,10 +8,12 @@
       "url": "https://packages.unity.com"
     },
     "com.cqtd.ui": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "depth": 0,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.cqtd.lib": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.trinary.mec": {

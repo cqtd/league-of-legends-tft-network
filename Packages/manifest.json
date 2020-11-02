@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.cqtd.lib": "1.0.0",
-    "com.cqtd.ui": "1.0.0",
+    "com.cqtd.ui": "1.0.1",
   	"com.trinary.mec": "1.0.0",
     "com.unity.ide.rider": "1.2.1",
     "com.unity.postprocessing": "2.3.0",

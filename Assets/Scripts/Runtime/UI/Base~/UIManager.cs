@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
-namespace CQ.LeagueOfLegends.TFT.Network.UI
+namespace CQ.UI
 {
 	public sealed class UIManager : SingletonMono<UIManager>
 	{
 		[SerializeField] Canvas root = default;
 		[SerializeField] CanvasScaler scaler = default;
 
-		TransitionCanvas transition = default;
+		// TransitionCanvas transition = default;
 		
 		Dictionary<string, UICanvas> cachedCanvases = default;
 
@@ -32,16 +32,16 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 			base.Awake();
 			
 			SetResolutionInternal();
-			TransitionCanvas prefab = Resources.Load<TransitionCanvas>(GetPrefabPathInternal("TransitionCanvas"));
-			transition = Instantiate(prefab, root.transform);
-
-			transition.transform.localPosition = Vector3.zero;
-			transition.transform.localScale = Vector3.one;
-			
-			transition.transform.SetAsLastSibling();
-			transition.SetCanvasConfig(true, 999);
-			
-			SetCanvasNameInternal(transition, "Transition Canvas");
+			// TransitionCanvas prefab = Resources.Load<TransitionCanvas>(GetPrefabPathInternal("TransitionCanvas"));
+			// transition = Instantiate(prefab, root.transform);
+			//
+			// transition.transform.localPosition = Vector3.zero;
+			// transition.transform.localScale = Vector3.one;
+			//
+			// transition.transform.SetAsLastSibling();
+			// transition.SetCanvasConfig(true, 999);
+			//
+			// SetCanvasNameInternal(transition, "Transition Canvas");
 		}
 
 		#region Public
@@ -57,7 +57,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 				canvas.transform.localScale = Vector3.one;
 				canvas.transform.SetAsLastSibling();
 				
-				transition.transform.SetAsLastSibling();
+				// transition.transform.SetAsLastSibling();
 
 				CachedCanvases[typeof(T).Name] = canvas;
 			}
@@ -87,7 +87,7 @@ namespace CQ.LeagueOfLegends.TFT.Network.UI
 				canvas.transform.localScale = Vector3.one;
 				canvas.transform.SetAsLastSibling();
 				
-				transition.transform.SetAsLastSibling();
+				// transition.transform.SetAsLastSibling();
 				
 				CachedCanvases[canvasName] = canvas;
 			}

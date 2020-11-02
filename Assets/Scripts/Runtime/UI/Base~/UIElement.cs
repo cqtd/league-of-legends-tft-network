@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CQ.LeagueOfLegends.TFT.Network.UI
+namespace CQ.UI
 {
 	public abstract class UIElement : MonoBehaviour
 	{

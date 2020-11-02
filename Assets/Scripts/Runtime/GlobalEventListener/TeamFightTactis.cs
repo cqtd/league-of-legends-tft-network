@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bolt;
 using CQ.LeagueOfLegends.TFT.Network.UI;
+using CQ.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;

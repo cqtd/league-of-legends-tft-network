@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace CQ.LeagueOfLegends.TFT.Network.UI
+namespace CQ.UI
 {
 	public abstract class UICanvas<T> : UICanvas where T : MonoBehaviour
 	{

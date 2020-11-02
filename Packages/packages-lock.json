@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "com.cqtd.lib": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.cqtd.ui": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.trinary.mec": {
       "version": "1.0.0",
       "depth": 0,

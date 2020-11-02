@@ -1,4 +1,4 @@
-﻿namespace CQ.LeagueOfLegends.TFT.Network.UI
+﻿namespace CQ.UI
 {
 	public abstract class UIWindow : UIElement
 	{

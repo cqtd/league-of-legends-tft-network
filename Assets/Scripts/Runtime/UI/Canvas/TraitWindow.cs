@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using CQ.UI;
+using UnityEngine.UI;
 
 namespace CQ.LeagueOfLegends.TFT.Network.UI
 {
